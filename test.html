@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="reactTest"></div>
+
+    <script type="text/babel">
+        function test() {
+            return (
+                <h1>리액트 코드가 잘 먹히는지 테스트 해보자!</h1>
+            );
+        }
+        const con = document.querySelector('#reactTest');
+        const root = ReactDOM.createRoot(con);
+        root.render(<test />);
+    </script>
+</body>
+
+</html>
