@@ -28,7 +28,9 @@ function Quiz2() {
 
     const addCount = () => {
         if (count < 10) {
-            // setCount((count) => count + 1); 와 setCount(count + 1);의 차이는 count를 확장할수있는가
+            // 1. setCount((count) => count + 1); -> 항상 최신 상태값을 참조함
+            // 2. setCount(() => count + 1); -> 랜더링 시점의 값을 참조함, 연속 호출시 부정확한 결과 발생이 가능함
+            // 3. setCount(count + 1);
             setCount((count) => count + 1);
         } else {
             setMsg("최대 클릭수에 도달함");
@@ -39,8 +41,8 @@ function Quiz2() {
         <div>
             <div onClick={addCount}>☆ {count}</div>
             {/* <p>{msg}</p> */}
-            {/* {count === 10 && <p>최대 클릭수에 도달함</p>} */}
-            {count === 10 ? <p>최대 클릭수에 도달 뿜뿜!!</p> : ""}
+            {count === 10 && <p>최대 클릭수에 도달함</p>}
+            {/* {count === 10 ? <p>최대 클릭수에 도달 뿜뿜!!</p> : ""} */}
         </div>
     );
 }

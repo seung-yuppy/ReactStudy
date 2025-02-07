@@ -11,6 +11,14 @@ import QuizExam from "./basic/eventExam1.js";
 import Condition from "./basic/conditionalRender.js";
 import ReactList from "./basic/reactList.js";
 import ReactCss from "./basic/usingCss.js";
+import Formtest from "./basic/forms.js";
+import Quiz2 from "./basic/quiz0206.js";
+import Hooks1 from "./hooks/useStateExam.js";
+import Hooks2 from "./hooks/useEffectExam.js";
+import Hooks3 from "./hooks/useContextExam.js";
+import Hooks4 from "./hooks/useRefExam.js";
+import Hooks5 from "./hooks/useReducerExam.js";
+import Hooks6 from "./hooks/useReducerExam2.js";
 
 // JSX를 적용하지 않은 예시
 // const el = React.createElement('h1', {}, 'jsx를 쓰는걸까요?');
@@ -129,4 +137,12 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 // const arr = [1, 2, 3, 4, 5, 6];
 // root.render(<Condition test={arr} />);
 // root.render(<ReactList />);
-root.render(<ReactCss />);
+// root.render(<ReactCss />);
+// root.render(<Formtest />);
+// root.render(<Quiz2 />);
+// root.render(<Hooks1 />);
+// root.render(<Hooks2 />);
+// root.render(<Hooks3 />);
+// root.render(<Hooks4 />);
+// root.render(<Hooks5 />);
+root.render(<Hooks6 />);

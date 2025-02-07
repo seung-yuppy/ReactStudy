@@ -25,10 +25,8 @@ function App(props) {
     return (
         <>
             <h1>파라미터로 받아온 배열 요소의 개수</h1>
-            {/* {test.length > 0 && (
-                <h2>배열 요소의 개수는 {test.length}개 입니다.</h2>
-            )} */}
-            {test.length > 0 ? <h2>배열 요소의 개수는 {test.length}개 입니다.</h2> : ""}
+            {test.length > 0 && <h2>배열 요소의 개수는 {test.length}개 입니다.</h2>}
+            {/* {test.length > 0 ? <h2>배열 요소의 개수는 {test.length}개 입니다.</h2> : ""} */}
         </>
     );
 }
