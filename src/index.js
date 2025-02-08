@@ -19,6 +19,12 @@ import Hooks3 from "./hooks/useContextExam.js";
 import Hooks4 from "./hooks/useRefExam.js";
 import Hooks5 from "./hooks/useReducerExam.js";
 import Hooks6 from "./hooks/useReducerExam2.js";
+import Hooks7 from "./hooks/useMemoExam.js";
+import Quiz3 from "./hooks/quiz0207-1.js";
+import Hooks8 from "./hooks/customHookExam.js"
+import Hooks9 from "./hooks/quiz0207-2.js";
+import RoutingApp from "./RoutingApp.js";
+import Navigation from "./router/navigation.js";
 
 // JSX를 적용하지 않은 예시
 // const el = React.createElement('h1', {}, 'jsx를 쓰는걸까요?');
@@ -145,4 +151,18 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 // root.render(<Hooks3 />);
 // root.render(<Hooks4 />);
 // root.render(<Hooks5 />);
-root.render(<Hooks6 />);
+// root.render(<Hooks6 />);
+// root.render(<Hooks7 />);
+// const products = [
+//     { id: 1, name: 'apple', price: 15 },
+//     { id: 2, name: 'banana', price: 10 },
+//     { id: 3, name: 'cake', price: 13 }
+// ];
+// const handleProductSelect = (productId) => {
+//     console.log("Selected product ID:", productId);
+// };
+// root.render(<Quiz3 products={products} onProductSelect={handleProductSelect} />);
+// root.render(<Hooks8 />);
+// root.render(<Hooks9 />);
+root.render(<RoutingApp />);
+// root.render(<Navigation />);
