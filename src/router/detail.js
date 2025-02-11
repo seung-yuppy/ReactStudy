@@ -16,16 +16,12 @@ const Detail = () => {
         return <h1>상품을 찾을 수 없습니다.</h1>
     };
 
-    const backBtn = () => {
-        navigate("/list")
-    };
-
     return (
         <>
             <div style={{ padding: "20px" }}>
                 <h1>{product.name}의 상세페이지 입니다.</h1>
                 <p>가격은 {product.price}원 입니다.</p>
-                <button onClick={() => navigate(-1)}>뒤로가기</button>
+                <button onClick={() => navigate(-1)}>뒤로가기</button> {/* 뒤로가기를 만들기 위해서는 navigate(-1) 이렇게 작성하면 된다 */}
             </div>
         </>
     )

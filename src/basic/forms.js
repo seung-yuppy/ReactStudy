@@ -16,7 +16,7 @@ function Formtest() {
         // values는 이전 상태값들을 나타낸다, 대괄호를 사용하여 객체의 키를 동적으로 정의한다(현재 input으로 2개 이상의 key:value값을 갖고 오기 때문에 동적으로 정의함)
         // 만약에 [name]을 쓰지 않고 name으로 키를 동적으로 정의하지 않으면 마지막에 있는 key로만 선언되고 value 또한 마지막 값만 가져온다(이전 데이터는 덮어씌워진다 키값이 동일하기 때문에)
         // values는 React가 제공하는 이전 상태값으로 기존 데이터를 복사해 새로운 객체를 생성하기 위해서는 스프레드 연산자(...)을 사용한다.
-        setInputs((values) => ({ ...values, [name]: value }))
+        setInputs((prev) => ({ ...prev, [name]: value }))
     };
 
     return (
@@ -37,7 +37,7 @@ function Formtest() {
     );
 }
 
-// export default Formtest;
+export default Formtest;
 
 function UserForm() {
     const [name, setName] = useState("");
@@ -98,4 +98,4 @@ function SelectBoxTest() {
     );
 }
 
-export default SelectBoxTest;
+// export default SelectBoxTest;

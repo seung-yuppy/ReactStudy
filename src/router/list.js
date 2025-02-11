@@ -18,9 +18,9 @@ const List = () => {
             <h1>상품 목록</h1>
             <ul>
                 {products.map((product) => (
-                    <li key={product.id}>
+                    <li key={product.id} style={{ listStyleType: "none", padding: "15px", border: "1px solid crimson", width: "300px", marginBottom: "10px" }}>
                         {product.name}입니다.
-                        <button onClick={() => gotoDetail(product.id)}>상세 페이지</button>
+                        <button onClick={() => gotoDetail(product.id)} style={{ marginLeft: "20px" }}>상세 페이지</button>
                     </li>
                 ))}
             </ul>
