@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import "./index.css";
 import App from "./App";
 import Car from "./util.js";
 import Class from "./basic/classComponent.js";
@@ -40,6 +39,9 @@ import { liststore } from "./redux/reduxThunk/listStore.js";
 import UserList from "./redux/reduxQuiz2/App.js";
 import TodoList from "./redux/reduxData/App.js";
 import MovieList from "./redux/reduxThunkMovie/App.js";
+import Logging from "./redux/loggingMiddleware/App.js";
+import MovieLogging from "./redux/loggingMiddlewareQuiz/App.js";
+import FormValidation from "./basic/formAndValidation/App.js";
 
 // JSX를 적용하지 않은 예시
 // const el = React.createElement('h1', {}, 'jsx를 쓰는걸까요?');
@@ -220,4 +222,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 // );
 // root.render(<UserList />);
 // root.render(<TodoList />);
-root.render(<MovieList />);
+// root.render(<MovieList />);
+// root.render(<Logging />);
+root.render(<MovieLogging />);
+// root.render(<FormValidation />);

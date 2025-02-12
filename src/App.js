@@ -1,5 +1,3 @@
-import './App.css';
-
 // 아래와 같은 문법이 jsx이다
 function App() {
   return (
