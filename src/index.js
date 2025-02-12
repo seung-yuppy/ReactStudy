@@ -35,6 +35,11 @@ import Shop from "./redux/reduxQuiz/shop.js";
 import { shopstore } from "./redux/reduxQuiz/shopStore.js";
 import ThemeToggle from "./redux/reduxQuiz/themeToggle.js";
 import { themestore } from "./redux/reduxQuiz/themeStore.js";
+import List from "./redux/reduxThunk/list.js";
+import { liststore } from "./redux/reduxThunk/listStore.js";
+import UserList from "./redux/reduxQuiz2/App.js";
+import TodoList from "./redux/reduxData/App.js";
+import MovieList from "./redux/reduxThunkMovie/App.js";
 
 // JSX를 적용하지 않은 예시
 // const el = React.createElement('h1', {}, 'jsx를 쓰는걸까요?');
@@ -178,7 +183,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 // root.render(<Navigation />);
 // root.render(<App2 />);
 // root.render(<ValueTracker />);
-root.render(<App3 />);
+// root.render(<App3 />);
 // redux를 쓰기 위해서는 Provider 컴포넌트가 필요
 // Provider에 store props를 필수로 전달해야함
 // root.render(
@@ -205,3 +210,14 @@ root.render(<App3 />);
 //         </Provider>
 //     </React.StrictMode>
 // );
+// root.render(
+//     <React.StrictMode>
+//         {/* redux를 사용할 때는 최상위 컴포넌트는 반드시 Provider 컴포넌트에 감싸져야함, store props 또한 필수적으로 전달해줄 필요가 있음 */}
+//         <Provider store={liststore}>
+//             <List />
+//         </Provider>
+//     </React.StrictMode>
+// );
+// root.render(<UserList />);
+// root.render(<TodoList />);
+root.render(<MovieList />);

@@ -1,8 +1,14 @@
+// 요구사항:
+// 1. 상품 목록을 보여주세요 (상품명, 가격만 있으면 됨)
+// 2. 각 상품에 [담기] 버튼을 만드세요
+// 3. 장바구니에 담긴 상품의 총 개수를 상단에 표시하세요
+// 4. 장바구니 비우기 버튼을 만드세요
+
 import { useDispatch, useSelector } from "react-redux";
 import { addItem, clearItems, clearItem } from "./shopSlice";
 
 function Shop() {
-    const items = useSelector((state) => state.cart.items);
+    const { items } = useSelector((state) => state.shop);
     const dispatch = useDispatch();
 
     const products = [

@@ -1,3 +1,9 @@
+// 요구사항:
+// 1. 라이트/다크 모드를 토글하는 버튼을 만드세요
+// 2. 현재 모드에 따라 배경색과 글자색이 변경되어야 합니다
+// 3. 현재 모드를 텍스트로 표시하세요 ("라이트 모드" 또는 "다크 모드")
+// 4. 모드 변경 시 부드러운 전환 효과를 넣어주세요
+
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from './themeSlice';
 

@@ -196,6 +196,33 @@
 // 6. createAsyncThunk : redux toolkit에서 제공하는 비동기 작업 처리 함수
 //  --> Promise랑 비슷
 // reducer 처리(extraReducer처리)
+// const fetchUser = createAsyncThunk(
+//     'users/fetchUser',
+//     async () => {
+//       const response = await fetch('/api/users');
+//       return response.json();
+//     }
+//   );
+
+// 리듀서 처리(extraReducer처리)
+// const slice = createSlice({
+//     name: 'users',
+//     initialState,
+//     reducers: {},
+//     extraReducers: (builder) => {
+//       builder
+//         .addCase(fetchUser.pending, (state) => {
+//           state.loading = 'pending';
+//         })
+//         .addCase(fetchUser.fulfilled, (state, action) => {
+//           state.loading = 'succeeded';
+//           state.data = action.payload;
+//         })
+//         .addCase(fetchUser.rejected, (state) => {
+//           state.loading = 'failed';
+//         });
+//     }
+//   })[3]
 
 
 // 사실 toolkit 없이 redux 구현 가능
@@ -219,8 +246,109 @@
 
 // 1. 일반 액션 객체 대신에 함수 그 자체를 리턴시키고 싶을 때 사용
 //  (비동기 로직 자체를 캡슐화 / Promise 기반 비동기 작업 처리시 용이)
+//      --> 액션 객체가 아닌 함수를 디스패치 할 수 있음
 
 // 작동방식
 // 액션이 함수냐 객체냐에 따라 동작방식은 달라짐
 //      --> 액션이 함수면 해당 함수 실행
 //      --> 액션이 객체면 다음 reducer로 전달
+
+// 예시
+// function Component() {
+//     const dispatch = useDispatch();
+//     const { data, loading, error } = useSelector((state) => state.example);
+
+//     useEffect(() => {
+//         dispatch(asyncAction());
+//     }, [dispatch]);
+
+//     if (loading) return <div>로딩 중...</div>;
+//     if (error) return <div>에러 발생</div>;
+
+//     return <div>{data}</div>;
+// }
+
+
+
+// Redux 흐름 요약
+// 상태값을 전부 기억하기 어렵고 어떻게 redux를 접근해야할지 모르겠다면 최소한 이 부분들이라도 기억해야함
+// Store, Reducer, Action
+// Action -> dispatch메서드 -> Reducer 호출 -> Store 생성
+
+// Subscribe(useSelector)
+//  --> 스토어가 값 변경되면 호출되는 함수
+
+// dispatch(addEventListener React버전)
+
+// redux와 랜더링 성능 최적화
+// 성능 최적화 방법
+// 1. 불필요한 리렌더링 방지
+//      - useSelector를 사용할 때 필요한 상태들만 정확하게 선택
+//      - 여러 상태를 개별적으로 선택하여 사용
+//      - 컴포넌트가 필요로 하는 상태 조각에만 붙도록 설정
+
+// 2. 메모리제이션 활요하기
+//      - useMemo, useCallback을 적재 적소에 활용
+
+// 3. 상태 구조 최적화
+//      - 중첩 데이터 구조는 지양
+//      - 상태 최소 유지
+//      - 상태는 정규화된 구조를 활용하는 것이 좋음
+
+// 4. immer 활용
+//      - 상태 업데이트를 쉽게 제공해주는 라이브러리
+//      - 중첩된 객체도 쉽게 업데이트가 가능하며 상태 변경의 관리를 조금 더 편하게 진행
+// const todoSlice = createSlice({
+//     name: 'todo',
+//     initialState: [],
+//     reducers: {
+//         add: (state, action) => {
+//             state.push(action.payload);  // 직접 수정
+//         },
+//         remove: (state, action) => {
+//             return state.filter(todo => todo.id !== action.payload);  // 새로운 상태 반환
+//         }
+//     }
+// });
+
+// 5. 개발자 도구 활용
+//      - redux DevTools를 사용하는 성능 모니터링
+//      - 컴포넌트 리랜더링 추적
+//      - 병목 현상 식별 및 해결
+//      - 패키지 설치 후 스토어 설정을 통해 react에서 디버깅 진행을 할 수 있음
+
+// redux 미들웨어 : action이 dispatch되어 reducer에서 처리되기 전에 사전작업을 처리할 수 있도록 도와주는 중간자
+// 1. 로깅 미들웨어 : npm install redux-logger
+// 2. 비동기 작업처리 : thunk 참고
+// 3. 상태 가공 : 미들웨어에서 action이 reducer에 도달하기 전 데이터를 변형하거나 처리하는 과정
+//      장점 : 상태 변화를 캐치하는 것이 어려웠던게 redux의 특징 --> 상태 가공을 활용함으로써 변화의 예측 가능성을 높일 수 있음
+//      --> 데이터 변형
+//          (action과 reducer 사이에서 데이터를 가공)
+//          (순수함수를 통해 상태 변경)
+//      상태 가공과 데이터 변형
+//      주의사항 : 데이터의 변형은 불변성을 지켜야한다
+//      1. 배열의 변형 : 불변성 유지에 대해 신경을 쓸 필요가 있음
+//          --> 새로운 항목 추가시
+//          const newState  = [...state, newItem];
+//          --> 삭제시
+//          state.filter((item) => item.id !== removeId);
+//          --> 수정시
+//          state.map((item) => item.id === targetId ? {...item, value: newValue} : item);
+//      2. 객체의 변형
+//          const newState = { ...state, name: 'newName' };
+//          --> 여러 속성 수정
+//          const newState = {
+//              ...state,
+//              name: 'newName',
+//              age: 25
+//          };
+//      3. redux toolkit (직접 수정하는거 같은데 불변성은 유지)
+//          --> 우리에게 가장 익숙한 방식, React(meta) 공식 권장 방법
+//          
+
+
+
+//      --> 처리 과정
+//          (action의 정보를 가로채서 필요한 가공 작업 수행)
+//          (특정 조건에 따라 액션 수행 여부 결정)
+//          (하나의 액션에서 여러 상태 변경 가능)
