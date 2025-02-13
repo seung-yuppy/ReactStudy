@@ -52,21 +52,56 @@ function CounterComponent() {
 // 5. 데이터는 다음의 주소에서 받아올것
 // `https://jsonplaceholder.typicode.com/posts?q=${searchTerm}`
 
+// 디바운스 --> 연속적으로 호출되는 함수로 인한 성능 저하를 막기 위해 시간을 설정해 시간 안에 마지막 함수를 호출한다
+// 예를 들어 s를 입력하고 설정한 시간 이내에 입력을 추가로 하면 입력됨과 동시에 시간도 다시 초기화 해 설정한 시간 이내에
+// 입력을 받는다. 만약에 설정한 시간이 지나고도 입력을 못받으면 해당 값을 확정으로 함수를 호출한다
+// value는 입력값, delay는 시간설정
+const useDebounce = (value, delay) => {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+
+    // useEffect로 value 변경 시점마다 clearTimeout을 진행하도록 설정한다(왜냐하면 시간 내에 value가 들어오면 또 다른 입력을 받을 수 있기 때문이다)
+    useEffect(() => {
+        // setTimeout으로 시간 내에 입력한 값을 받도록 설정한다.
+        const timer = setTimeout(() => {
+            setDebouncedValue(value);
+        }, delay);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [value]);
+
+    return debouncedValue;
+};
+
 
 function SearchComponent() {
     const [searchTerm, setSearchTerm] = useState('');
     const [results, setResults] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
+    // 디바운스를 만든 커스텀 훅에 검색value와 요구조건의 500ms를 설정한다
+    const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
     useEffect(() => {
-        async function getPost(searchTerm) {
-            const response = await fetch(`https://jsonplaceholder.typicode.com/posts?q=${searchTerm}`);
-            const data = await response.json();
-            console.log(data);
-            setResults(data);
+        // 디바운스검색값이 있을 때 데이터를 렌더링하도록 코드를 작성하였다
+        // 초기에는 로딩상태에 들어간 후 getPost함수를 통해 데이터를 불러오면 로딩상태에 빠져나온다
+        
+        if (debouncedSearchTerm) {
+            setIsLoading(true);
+            async function getPost(debouncedSearchTerm) {
+                const response = await fetch(`https://jsonplaceholder.typicode.com/posts?q=${debouncedSearchTerm}`);
+                const data = await response.json();
+                console.log(data);
+                setResults(data);
+                setIsLoading(false);
+            };
+            getPost(debouncedSearchTerm);
+        } else {
+            setIsLoading(false);
         }
-        getPost(searchTerm);
-    }, [searchTerm])
+
+    }, [debouncedSearchTerm])
 
     return (
         <div>
