@@ -42,6 +42,7 @@ import MovieList from "./redux/reduxThunkMovie/App.js";
 import Logging from "./redux/loggingMiddleware/App.js";
 import MovieLogging from "./redux/loggingMiddlewareQuiz/App.js";
 import FormValidation from "./basic/formAndValidation/App.js";
+import CounterComponent from "./basic/250213quiz/App.js";
 
 // JSX를 적용하지 않은 예시
 // const el = React.createElement('h1', {}, 'jsx를 쓰는걸까요?');
@@ -224,5 +225,6 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 // root.render(<TodoList />);
 // root.render(<MovieList />);
 // root.render(<Logging />);
-root.render(<MovieLogging />);
+// root.render(<MovieLogging />);
 // root.render(<FormValidation />);
+root.render(<CounterComponent />);
