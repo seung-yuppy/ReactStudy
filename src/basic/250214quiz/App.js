@@ -4,5 +4,14 @@
 // 3. 가격 범위 필터링
 // 4. 장바구니 합계 계산
 
+import ProductItem from "./ProductItem";
+
 // ProductItem.js, ProductList.js, Cart.js 컴포넌트를 구현하세요
 
+export default function App() {
+    return (
+        <>
+            <ProductItem />
+        </>
+    );
+}
