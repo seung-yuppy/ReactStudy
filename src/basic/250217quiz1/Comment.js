@@ -29,11 +29,48 @@ function Comment() {
         // 해당 데이터에 접근해 key가 replies를 제외한 객체들은 복사하고 key가 replies인 value에 접근한다
         // key가 replies의 value가 배열이기 때문에 기존의 배열을 복사하고 새로운 {id, comment}를 key로 갖는 객체를 배열에 추가한다 
         setDatas((prev) => prev.map((data) => data.id === 1 && { ...data, replies: [...data.replies, { id: Date.now(), comment: comment }] }));
-    }
+    };
 
     const deleteComment = (id) => {
         setDatas((prev) => prev.map((data) => data.id === 1 && { ...data, replies: data.replies.filter((reply) => reply.id !== id) }));
     };
+
+    const editComment = (id, comment) => {
+        setDatas((prev) =>
+            prev.map((data) =>
+                data.id === 1 ? {
+                    ...data,
+                    replies: data.replies.map((reply) =>
+                        // replies 배열에 {id, comment}가 있는데 id와 editComment의 id가 같으면 id는 같으니깐 복사를 하기 스프레드 연산자를 사용하였고,
+                        // comment 내용이 달라지니깐 comment로 바꿈
+                        reply.id === id ? { ...reply, comment: comment } : reply
+                    )
+                } : data
+            )
+        );
+    };
+
+    const newReplyComment = (id, comment) => {
+        setDatas((prev) =>
+            prev.map((data) =>
+                data.id === 1 ? {
+                    ...data,
+                    replies: data.replies.map((reply) =>
+                        // replies 배열에 { id, comment } 객체를 갖는 배열이 있는데 이걸 map함수를 이용해서 대댓글을 달 댓글 id와 비교해서 같으면
+                        // 기존의 { id, comment } 객체는 유지(스프레드 연산자로 복사)하고 새로운 replies 배열을 만들어서 이 배열에도 { id, comment }객체를 저장하는 배열로 만들어서 대댓글을 저장하도록 코드를 작성하였다
+                        // 대댓글 배열은 초기상태에 없기 때문에(초기상태가 비어있어서) 빈 배열을 선언해주고 대댓글 배열에 객체가 있으면 스프레드 연산자로 복사해 대댓글을 추가해나가는 방식으로 만들었다
+                        reply.id === id ? {
+                            ...reply,
+                            replies: [...(reply.replies || []), { id: Date.now(), comment: comment }] // 대댓글 추가
+                        } : reply
+                    )
+                } : data
+            )
+        );
+    };
+
+
+    console.log(datas);
 
     return (
         <div>
@@ -44,10 +81,10 @@ function Comment() {
                         <p>-{data.author}-</p>
                     </div>
                     <div>
-                        <h4>좋아요 {data.likes} <button onClick={() => addLikes(data.id)}>♥</button></h4>
+                        <h4>좋아요 {data.likes} <button onClick={() => addLikes(data.id)}>❤️</button></h4>
                         <span>작성 시간 : {data.timestamp.toLocaleString()}</span>
                     </div>
-                    <CommentList data={data} deleteComment={deleteComment} />
+                    <CommentList data={data} deleteComment={deleteComment} editComment={editComment} newReplyComment={newReplyComment} />
                     <CommentForm addComment={addComment} />
                 </div>
             ))}
