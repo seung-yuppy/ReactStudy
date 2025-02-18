@@ -44,6 +44,9 @@ import MovieLogging from "./redux/loggingMiddlewareQuiz/App.js";
 import FormValidation from "./basic/formAndValidation/App.js";
 import CounterComponent from "./basic/250213quiz/App.js";
 import ProductItem from "./basic/250214quiz/App.js";
+import TDD from "./basic/tdd/App.js";
+import MemoQuiz from "./basic/250217quiz2/App.js";
+import Comment from "./basic/250217quiz1/App.js";
 
 // JSX를 적용하지 않은 예시
 // const el = React.createElement('h1', {}, 'jsx를 쓰는걸까요?');
@@ -229,4 +232,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 // root.render(<MovieLogging />);
 // root.render(<FormValidation />);
 // root.render(<CounterComponent />);
-root.render(<ProductItem />);
+// root.render(<ProductItem />);
+// root.render(<TDD />);
+// root.render(<MemoQuiz />);
+root.render(<Comment />);

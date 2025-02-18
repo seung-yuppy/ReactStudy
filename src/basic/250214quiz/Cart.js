@@ -3,7 +3,7 @@ const Cart = ({ carts }) => {
         <>
             {carts && carts.map((cart, index) => (
                 <div key={index}>
-                    <p>{cart.item.name} - {cart.item.price}</p>
+                    <p>{cart.item.name} - {cart.item.price}원</p>
                 </div>
             ))}
         </>

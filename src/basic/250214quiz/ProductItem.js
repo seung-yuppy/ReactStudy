@@ -26,7 +26,7 @@ function ProductItem() {
             <h1>장바구니</h1>
             <Cart carts={carts} />
 
-            <h1>총 합계 : {totalPrice}</h1>
+            <h1>총 합계 : {totalPrice}원</h1>
         </>
     );
 }
