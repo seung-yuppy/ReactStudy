@@ -33,7 +33,7 @@ function Calbak() {
     const [todos, setTodos] = useState([]);
 
     const increment = () => {
-        setCount((count) => count + 1)
+        setCount((count) => count + 1);
     };
 
     // 필요할 때만 랜더링되도록 useCallback hook을 활용
@@ -41,7 +41,12 @@ function Calbak() {
     const addTodo = useCallback(() => {
         setTodos((todos) => [...todos, "새로운 할 일"]);
         // 의존성 배열을 통해 todos의 변경을 감지했을 때만 처리되도록 진행
-    }, [todos]);
+    }, []);
+
+    // addTodo에 콜백을 요청하지 않으면 count가 늘어날 때마다 재랜더링될 때 Todos도 상태값이 변하지 않아도 재랜더링 되기 때문에 불필요한 렌더링이 발생한다
+    // const addTodo = () => {
+    //     setTodos((todos) => [...todos, "가보자가보자"]);
+    // };
 
     return (
         <>
@@ -51,15 +56,15 @@ function Calbak() {
                 <button onClick={increment}>+</button>
             </div>
         </>
-    )
+    );
 }
 
-// export default Calbak;
+export default Calbak;
 
 function SquCal() {
     const [number, setNumber] = useState(0);
 
-    // squareNumber와 memoSquare는 결과 자체는 똑같지만 둘의 차이는 
+    // squareNumber와 memoSquare는 결과 자체는 똑같지만 둘의 차이는
     // squareNumber는 그 어떤 이벤트가 발생되어도 리랜더링되지만
     // memoSquare는 말 그대로 계산시에만 리랜더링된다는 차이점이 있음
     // --> memo, useMemo Hook은 불필요한 실행을 막을 수 있다는 장점이 있음
@@ -75,14 +80,18 @@ function SquCal() {
 
     return (
         <div>
-            <input type="number" value={number} onChange={(e) => setNumber(Number(e.target.value))} />
+            <input
+                type="number"
+                value={number}
+                onChange={(e) => setNumber(Number(e.target.value))}
+            />
             <p>제곱값 : {squareNumber} </p>
             <p>메모 제곱값 : {memoSquare} </p>
         </div>
     );
 }
 
-export default SquCal;
+// export default SquCal;
 
 // useMemo, useCallback을 활용하는 리액트 성능 최적화 전략
 // 1. 의존성 배열의 선언과 최적화
@@ -111,25 +120,25 @@ export default SquCal;
 
 // 3. 중첩 메모리제이션 처리
 // function NestedMemoization({ data }) {
-    // 1단계 데이터 처리
+// 1단계 데이터 처리
 //     const processedData = useMemo(() => {
 //       return data.map(item => ({
 //         ...item,
 //         processed: true
 //       }));
 //     }, [data]);
-  
+
 //     // 2단계 데이터 처리
 //     const finalData = useMemo(() => {
 //       return processedData.filter(item => item.value > 0);
 //     }, [processedData]);
-  
+
 //     // 처리된 데이터를 사용하는 함수
 //     const handleDataOperation = useCallback((id) => {
 //       const item = finalData.find(item => item.id === id);
 //       // 작업 수행
 //     }, [finalData]);
-  
+
 //     return (
 //       <div>
 //         {finalData.map(item => (

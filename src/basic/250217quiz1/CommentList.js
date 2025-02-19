@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styled from "styled-components";
 
 function CommentList({ data, deleteComment, editComment, newReplyComment }) {
     const [newComment, setNewComment] = useState("");
@@ -33,53 +34,165 @@ function CommentList({ data, deleteComment, editComment, newReplyComment }) {
 
     return (
         <>
-            <div>
+            <Wrapper>
                 <h3>댓글목록</h3>
-                {data.replies.map((reply) => (
-                    <li key={reply.id}>
-                        {editId === reply.id ? (
-                            <>
-                                <input
-                                    type="text"
-                                    value={newComment}
-                                    onChange={(e) => setNewComment(e.target.value)}
-                                />
-                                <button onClick={() => handleEditSubmit(reply.id)}>완료</button>
-                            </>
-                        ) : (
-                            <>
-                                <div>
-                                    <span>{reply.comment}</span>
-                                    <h4>대댓글</h4>
-                                    {reply.replies && reply.replies.length > 0 ? (
-                                        reply.replies.map((newreply) => (
-                                            <p key={newreply.id}>{newreply.comment}</p>
-                                        ))
-                                    ) : (
-                                        <p>대댓글이 없습니다.</p>
+                <List>
+                    {data.replies.map((reply) => (
+                        <Listitem key={reply.id}>
+                            {editId === reply.id ? (
+                                <EditWrapper>
+                                    <Addinput
+                                        type="text"
+                                        value={newComment}
+                                        onChange={(e) =>
+                                            setNewComment(e.target.value)
+                                        }
+                                    />
+                                    <Addbtn
+                                        onClick={() =>
+                                            handleEditSubmit(reply.id)
+                                        }
+                                    >
+                                        Edit
+                                    </Addbtn>
+                                </EditWrapper>
+                            ) : (
+                                <>
+                                    <CommentBox>
+                                        <Commentitem>
+                                            {reply.comment}
+                                            <Addbtn
+                                                onClick={() =>
+                                                    handleNewReply(reply)
+                                                }
+                                            >
+                                                대댓글
+                                            </Addbtn>
+                                            <Addbtn
+                                                onClick={() =>
+                                                    handleEditClick(reply)
+                                                }
+                                            >
+                                                수정
+                                            </Addbtn>
+                                            <Addbtn
+                                                onClick={() =>
+                                                    deleteComment(reply.id)
+                                                }
+                                            >
+                                                삭제
+                                            </Addbtn>
+                                        </Commentitem>
+                                        {reply.replies &&
+                                        reply.replies.length > 0 ? (
+                                            reply.replies.map((newreply) => (
+                                                <Replyitem key={newreply.id}>
+                                                    {newreply.comment}
+                                                </Replyitem>
+                                            ))
+                                        ) : (
+                                            <p>대댓글이 없습니다.</p>
+                                        )}
+                                    </CommentBox>
+
+                                    {replyId === reply.id && (
+                                        <EditWrapper>
+                                            <Addinput
+                                                type="text"
+                                                value={newReply}
+                                                onChange={(e) =>
+                                                    setNewReply(e.target.value)
+                                                }
+                                                placeholder="대댓글을 입력하세요"
+                                            />
+                                            <Addbtn
+                                                onClick={() =>
+                                                    handleReplySubmit(reply.id)
+                                                }
+                                            >
+                                                ADD
+                                            </Addbtn>
+                                        </EditWrapper>
                                     )}
-                                </div>
-                                <button onClick={() => handleNewReply(reply)}>대댓글</button>
-                                <button onClick={() => handleEditClick(reply)}>수정</button>
-                                <button onClick={() => deleteComment(reply.id)}>삭제</button>
-                                {replyId === reply.id && (
-                                    <>
-                                        <input
-                                            type="text"
-                                            value={newReply}
-                                            onChange={(e) => setNewReply(e.target.value)}
-                                            placeholder="대댓글을 입력하세요"
-                                        />
-                                        <button onClick={() => handleReplySubmit(reply.id)}>저장</button>
-                                    </>
-                                )}
-                            </>
-                        )}
-                    </li>
-                ))}
-            </div >
+                                </>
+                            )}
+                        </Listitem>
+                    ))}
+                </List>
+            </Wrapper>
         </>
     );
 }
 
 export default CommentList;
+
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #f0932b;
+    border-radius: 5px;
+`;
+
+const EditWrapper = styled(Wrapper)`
+    flex-direction: row;
+`;
+
+const List = styled.ul`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 15px;
+`;
+
+const Listitem = styled.li`
+    display: flex;
+    gap: 10px;
+    align-self: flex-start;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px 15px;
+    border-radius: 16px;
+    list-style: none;
+`;
+
+const CommentBox = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+const Commentitem = styled.span`
+    background: #2979ff;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 16px 16px 0 16px;
+    align-items: center;
+`;
+
+const Replyitem = styled.p`
+    background: #f0f0f0;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 16px 16px 16px 0;
+`;
+
+const Addinput = styled.input`
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 16px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+`;
+
+const Addbtn = styled.button`
+    padding: 10px 20px;
+    border-radius: 16px;
+    border: none;
+    background-color: ${(props) => (props.disabled ? "#ccc" : "#2979ff")};
+    color: #fff;
+    cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+`;

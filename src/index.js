@@ -20,7 +20,7 @@ import Hooks5 from "./hooks/useReducerExam.js";
 import Hooks6 from "./hooks/useReducerExam2.js";
 import Hooks7 from "./hooks/useMemoExam.js";
 import Quiz3 from "./hooks/quiz0207-1.js";
-import Hooks8 from "./hooks/customHookExam.js"
+import Hooks8 from "./hooks/customHookExam.js";
 import Hooks9 from "./hooks/quiz0207-2.js";
 import RoutingApp from "./RoutingApp.js";
 import Navigation from "./router/navigation.js";
